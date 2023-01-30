@@ -6,58 +6,13 @@ package nn
 
 import (
 	"io"
-	"crypto"
 	"crypto/rand"
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/hmac"
 	"crypto/sha256"
     "errors"
-
-	"github.com/aead/ecdh"
 )
-
-func GenerateKeyPairs(random io.Reader) (crypto.PrivateKey, crypto.PublicKey, error) {
-	if random == nil {
-		random = rand.Reader
-	}
-
-	c25519 := ecdh.X25519()
-
-	privateKey, publicKey, err := c25519.GenerateKey(random)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return privateKey, publicKey, nil
-}
-
-func PublicKey(privateKey crypto.PrivateKey) crypto.PublicKey {
-	c25519 := ecdh.X25519()
-
-	publicKey := c25519.PublicKey(privateKey)
-
-	return publicKey
-}
-
-func Check(publicKey crypto.PublicKey) error {
-	c25519 := ecdh.X25519()
-
-	err := c25519.Check(publicKey)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func ComputeSecret(privateKey crypto.PrivateKey, publicKey crypto.PublicKey) []byte {
-	c25519 := ecdh.X25519()
-
-	secret := c25519.ComputeSecret(privateKey, publicKey)
-
-	return secret
-}
 
 func encryptMessage(key, plaintext []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
