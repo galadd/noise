@@ -3,7 +3,6 @@ package crypto
 import (
 	"math"
 	"bytes"
-	"errors"
 	"encoding/binary"
 	"golang.org/x/crypto/chacha20poly1305"
 )
@@ -14,7 +13,7 @@ import (
 func Encrypt(k [32]byte, n uint64, ad, plaintext []byte) ([]byte, error) {
 	codec, err := chacha20poly1305.New(k[:])
 	if err != nil {
-		return nil, errors.New("Error encrypting plaintext")
+		return nil, err
 	}
 
 	var nonce [8]byte
@@ -30,14 +29,14 @@ func Encrypt(k [32]byte, n uint64, ad, plaintext []byte) ([]byte, error) {
 func Decrypt(k [32]byte, n uint64, ad, ciphertext []byte) ([]byte, error) {
 	codec, err := chacha20poly1305.New(k[:])
 	if err != nil {
-		return nil, errors.New("Error decrypting ciphertext")
+		return nil, err
 	}
 
 	var nonce [8]byte
 	binary.LittleEndian.PutUint64(nonce[:], n)
 	plaintext, err := codec.Open(nil, append([]byte{0, 0, 0, 0}, nonce[:]...), ciphertext, ad)
 	if err != nil {
-		return nil, errors.New("Error decrypting ciphertext")
+		return nil, err
 	}
 	return plaintext, nil
 }
