@@ -16,8 +16,8 @@ type CipherState struct {
 /*
  * InitializeKey sets the key for the CipherState.
  */
-func (c *CipherState) InitializeKey(key [32]byte) {
-	c.k = key
+func (c *CipherState) InitializeKey(key []byte) {
+	copy(c.k[:], key)
 	c.n = 0
 }
 
