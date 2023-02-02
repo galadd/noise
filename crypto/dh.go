@@ -36,8 +36,8 @@ func GenerateKeypair() (*KeyPair, error) {
 /*
  * DH performs a Diffie-Hellman key exchange and returns the shared key
  */
-func DH(privateKey, publicKey []byte) ([]byte, error) {
-	sharedKey, err := curve25519.X25519(privateKey, publicKey)
+func DH(publicKey1, publicKey2 []byte) ([]byte, error) {
+	sharedKey, err := curve25519.X25519(publicKey1, publicKey2)
 	if err != nil {
 		err = errors.New("Error generating shared key")
 		return nil, err
