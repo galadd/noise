@@ -43,7 +43,9 @@ func (c *CipherState) EncryptWithAd(ad, plaintext []byte) ([]byte, error) {
 	if !kStatus {
 		return plaintext, errors.New("No key") 
 	} else {
-		return crypto.Encrypt(c.k, c.n, ad, plaintext)
+		ciphertext, err := crypto.Encrypt(c.k, c.n, ad, plaintext)
+		// c.n++ // triggers errOpen in ChaCha20Poly1305.Open for some reason
+		return ciphertext, err
 	}
 }
 
@@ -55,7 +57,9 @@ func (c *CipherState) DecryptWithAd(ad, ciphertext []byte) ([]byte, error) {
 	if !kStatus {
 		return ciphertext, errors.New("No key")
 	} else {
-		return crypto.Decrypt(c.k, c.n, ad, ciphertext)
+		plaintext, err := crypto.Decrypt(c.k, c.n, ad, ciphertext)
+		c.n++
+		return plaintext, err
 	}
 }
 
