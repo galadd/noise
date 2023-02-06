@@ -104,13 +104,15 @@ func (s *SymmetricState) DecryptAndHash(ciphertext []byte) ([]byte, error) {
 /*
  * Split splits the SymmetricState into two CipherStates.
  */
-func (s *SymmetricState) Split() (CipherState, CipherState, error) {
+func (s *SymmetricState) Split() (*CipherState, *CipherState, error) {
+	cs1 := new(CipherState)
+	cs2 := new(CipherState)
+
 	tempKey1, tempKey2, _, err := crypto.Hkdf(s.ck[:], nil, 2)
 	if err != nil {
-		return CipherState{}, CipherState{}, errors.New("Hkdf failed")
+		return nil, nil, errors.New("Hkdf failed")
 	}
 
-	var cs1, cs2 CipherState
 	cs1.InitializeKey(tempKey1)
 	cs2.InitializeKey(tempKey2)
 
