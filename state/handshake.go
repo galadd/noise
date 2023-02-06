@@ -91,20 +91,20 @@ func (h *HandshakeState) WriteMessage(payload []byte, messageBuffer *[]byte) (*C
 			}
 			*messageBuffer = append(*messageBuffer, ctext...)
 		case pattern.EE:
-			dhKey, err := crypto.DH(h.e.PublicKey[:], h.re[:])
+			dhKey, err := crypto.DH(h.e.PrivateKey[:], h.re[:])
 			if err != nil {
 				return nil, nil, err
 			}
 			h.ss.MixKey(dhKey[:])
 		case pattern.ES:
 			if h.initiator {
-				dhKey, err := crypto.DH(h.e.PublicKey[:], h.rs[:])
+				dhKey, err := crypto.DH(h.e.PrivateKey[:], h.rs[:])
 				if err != nil {
 					return nil, nil, err
 				}
 				h.ss.MixKey(dhKey[:])
 			} else {
-				dhKey, err := crypto.DH(h.s.PublicKey[:], h.re[:])
+				dhKey, err := crypto.DH(h.s.PrivateKey[:], h.re[:])
 				if err != nil {
 					return nil, nil, err
 				}
@@ -112,20 +112,20 @@ func (h *HandshakeState) WriteMessage(payload []byte, messageBuffer *[]byte) (*C
 			}
 		case pattern.SE:
 			if h.initiator {
-				dhKey, err := crypto.DH(h.s.PublicKey[:], h.re[:])
+				dhKey, err := crypto.DH(h.s.PrivateKey[:], h.re[:])
 				if err != nil {
 					return nil, nil, err
 				}
 				h.ss.MixKey(dhKey[:])
 			} else {
-				dhKey, err := crypto.DH(h.e.PublicKey[:], h.rs[:])
+				dhKey, err := crypto.DH(h.e.PrivateKey[:], h.rs[:])
 				if err != nil {
 					return nil, nil, err
 				}
 				h.ss.MixKey(dhKey[:])
 			}
 		case pattern.SS:
-			dhKey, err := crypto.DH(h.s.PublicKey[:], h.rs[:])
+			dhKey, err := crypto.DH(h.s.PrivateKey[:], h.rs[:])
 			if err != nil {
 				return nil, nil, err
 			}
@@ -190,20 +190,20 @@ func (h *HandshakeState) ReadMessage(message []byte, payloadBuffer *[]byte) (*Ci
 			}
 			copy(h.rs[:], plaintext)
 		case pattern.EE:
-			dhKey, err := crypto.DH(h.e.PublicKey[:], h.re[:])
+			dhKey, err := crypto.DH(h.e.PrivateKey[:], h.re[:])
 			if err != nil {
 				return nil, nil, err
 			}
 			h.ss.MixKey(dhKey[:])
 		case pattern.ES:
 			if h.initiator {
-				dhKey, err := crypto.DH(h.e.PublicKey[:], h.rs[:])
+				dhKey, err := crypto.DH(h.e.PrivateKey[:], h.rs[:])
 				if err != nil {
 					return nil, nil, err
 				}
 				h.ss.MixKey(dhKey[:])
 			} else {
-				dhKey, err := crypto.DH(h.s.PublicKey[:], h.re[:])
+				dhKey, err := crypto.DH(h.s.PrivateKey[:], h.re[:])
 				if err != nil {
 					return nil, nil, err
 				}
@@ -211,20 +211,20 @@ func (h *HandshakeState) ReadMessage(message []byte, payloadBuffer *[]byte) (*Ci
 			}
 		case pattern.SE:
 			if h.initiator {
-				dhKey, err := crypto.DH(h.s.PublicKey[:], h.re[:])
+				dhKey, err := crypto.DH(h.s.PrivateKey[:], h.re[:])
 				if err != nil {
 					return nil, nil, err
 				}
 				h.ss.MixKey(dhKey[:])
 			} else {
-				dhKey, err := crypto.DH(h.e.PublicKey[:], h.rs[:])
+				dhKey, err := crypto.DH(h.e.PrivateKey[:], h.rs[:])
 				if err != nil {
 					return nil, nil, err
 				}
 				h.ss.MixKey(dhKey[:])
 			}
 		case pattern.SS:
-			dhKey, err := crypto.DH(h.s.PublicKey[:], h.rs[:])
+			dhKey, err := crypto.DH(h.s.PrivateKey[:], h.rs[:])
 			if err != nil {
 				return nil, nil, err
 			}
