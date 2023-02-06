@@ -1,7 +1,7 @@
 package pattern
 
 const (
-	E = "e"
+	E string = "e"
 	EE = "ee"
 	ES = "es"
 	S = "s"
@@ -9,85 +9,85 @@ const (
 	SS = "ss"
 )
 
-type messages []string
+type Messages []string
 
 type HandshakePattern struct {
 	Name string
-	PreMessagePatterns []messages
-	MessagePatterns []messages
+	PreMessagePatterns []Messages
+	MessagePatterns []Messages
 }
 
 var (
 	Noise_N = HandshakePattern{
 		Name: "N",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{S},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, ES},
 		},
 	}
 	Noise_K = HandshakePattern{
 		Name: "K",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{S},
 			{S},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, ES, SS},
 		},
 	}
 	Noise_X = HandshakePattern{
 		Name: "X",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{S},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, ES, S, SS},
 		},
 	}
 	Noise_NN = HandshakePattern{
 		Name: "NN",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E},
 			{E, EE},
 		},
 	}
 	Noise_NK = HandshakePattern{
 		Name: "NK",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{S},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, ES},
 			{E, EE},
 		},
 	}
 	Noise_NX = HandshakePattern{
 		Name: "NX",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{S},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E},
 			{E, EE, S, ES},
 		},
 	}
 	Noise_XN = HandshakePattern{
 		Name: "XN",
-		PreMessagePatterns: []messages{	
+		PreMessagePatterns: []Messages{	
 			{},
 			{},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E},
 			{E, EE},
 			{S, SE},
@@ -95,11 +95,11 @@ var (
 	}
 	Noise_XK = HandshakePattern{	
 		Name: "XK",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{S},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, ES},
 			{E, EE},
 			{S, SE},
@@ -107,11 +107,11 @@ var (
 	}
 	Noise_XX = HandshakePattern{
 		Name: "XX",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E},
 			{E, EE, S, ES},
 			{S, SE},
@@ -119,66 +119,66 @@ var (
 	}
 	Noise_KN = HandshakePattern{
 		Name: "KN",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{S},
 			{},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E},
 			{E, EE, SE},
 		},
 	}
 	Noise_KK = HandshakePattern{
 		Name: "KK",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{S},
 			{S},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, ES, SS},
 			{E, EE, SE},
 		},
 	}
 	Noise_KX = HandshakePattern{
 		Name: "KX",	
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{S},
 			{},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E},
 			{E, EE, SE, S, ES},
 		},
 	}
 	Noise_IN = HandshakePattern{
 		Name: "IN",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, S},
 			{E, EE, SE},
 		},
 	}
 	Noise_IK = HandshakePattern{
 		Name: "IK",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{S},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, ES, S, SS},
 			{E, EE, SE},
 		},
 	}
 	Noise_IX = HandshakePattern{
 		Name: "IX",
-		PreMessagePatterns: []messages{
+		PreMessagePatterns: []Messages{
 			{},
 			{},
 		},
-		MessagePatterns: []messages{
+		MessagePatterns: []Messages{
 			{E, S},
 			{E, EE, SE, S, ES},
 		},
